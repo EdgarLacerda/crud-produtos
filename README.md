@@ -407,6 +407,7 @@ Este projeto demonstra conhecimento em:
 **⏱️ Tempo estimado para rodar:** 3-5 minutos  
 **🔗 Repositório:** https://github.com/EdgarLacerda/crud-produtos  
 **📧 Contato:** edgarlacerdaa@gmail.com
+**📷 Link da gravação https://drive.google.com/file/d/1dODrPBEivCRpNCv1NVq77VXaqUCASrYI/view?usp=sharing
 
 ---
 

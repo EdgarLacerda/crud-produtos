@@ -7,12 +7,16 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middlewares
+
+
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Conectar ao banco de dados SQLite
+
+
+
 const db = new sqlite3.Database('./produtos.db', (err) => {
   if (err) {
     console.error('Erro ao conectar ao banco de dados:', err.message);
@@ -22,7 +26,9 @@ const db = new sqlite3.Database('./produtos.db', (err) => {
   }
 });
 
-// Criar tabela de produtos
+
+
+
 function createTable() {
   const sql = `
     CREATE TABLE IF NOT EXISTS produtos (
@@ -43,7 +49,8 @@ function createTable() {
   });
 }
 
-// Validação de dados
+
+
 function validateProduct(produto) {
   const errors = [];
   
@@ -62,9 +69,9 @@ function validateProduct(produto) {
   return errors;
 }
 
-// ROTAS DA API
 
-// 1. Listar todos os produtos
+
+
 app.get('/api/produtos', (req, res) => {
   const sql = 'SELECT * FROM produtos ORDER BY id DESC';
   
@@ -76,7 +83,9 @@ app.get('/api/produtos', (req, res) => {
   });
 });
 
-// 2. Exibir detalhes de um produto específico
+
+
+
 app.get('/api/produtos/:id', (req, res) => {
   const { id } = req.params;
   const sql = 'SELECT * FROM produtos WHERE id = ?';
@@ -92,11 +101,13 @@ app.get('/api/produtos/:id', (req, res) => {
   });
 });
 
-// 3. Criar novo produto
+
 app.post('/api/produtos', (req, res) => {
   const { nome, descricao, preco, quantidade } = req.body;
   
-  // Validação
+
+
+
   const errors = validateProduct({ nome, preco, quantidade });
   if (errors.length > 0) {
     return res.status(400).json({ errors });
@@ -115,12 +126,15 @@ app.post('/api/produtos', (req, res) => {
   });
 });
 
-// 4. Atualizar produto
+
+
+
 app.put('/api/produtos/:id', (req, res) => {
   const { id } = req.params;
   const { nome, descricao, preco, quantidade } = req.body;
   
-  // Validação
+
+
   const errors = validateProduct({ nome, preco, quantidade });
   if (errors.length > 0) {
     return res.status(400).json({ errors });
@@ -139,7 +153,7 @@ app.put('/api/produtos/:id', (req, res) => {
   });
 });
 
-// 5. Excluir produto
+
 app.delete('/api/produtos/:id', (req, res) => {
   const { id } = req.params;
   const sql = 'DELETE FROM produtos WHERE id = ?';
@@ -155,7 +169,7 @@ app.delete('/api/produtos/:id', (req, res) => {
   });
 });
 
-// 6. Pesquisar produtos por nome
+
 app.get('/api/produtos/buscar/:nome', (req, res) => {
   const { nome } = req.params;
   const sql = 'SELECT * FROM produtos WHERE nome LIKE ? ORDER BY id DESC';
@@ -168,12 +182,13 @@ app.get('/api/produtos/buscar/:nome', (req, res) => {
   });
 });
 
-// Servir o frontend
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Iniciar servidor
+
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

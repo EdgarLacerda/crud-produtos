@@ -2,7 +2,8 @@ const API_URL = 'http://localhost:3000/api/produtos';
 let produtoEditando = null;
 let produtoParaExcluir = null;
 
-// Carregar produtos ao iniciar
+
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarProdutos();
     
@@ -14,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Carregar todos os produtos
+
+
 async function carregarProdutos() {
     try {
         const response = await fetch(API_URL);
@@ -26,7 +28,8 @@ async function carregarProdutos() {
     }
 }
 
-// Buscar produtos por nome
+
+
 async function buscarProdutos() {
     const termo = document.getElementById('searchInput').value.trim();
     
@@ -44,7 +47,8 @@ async function buscarProdutos() {
     }
 }
 
-// Renderizar produtos na tabela
+
+
 function renderizarProdutos(produtos) {
     const tbody = document.getElementById('produtosBody');
     
@@ -68,7 +72,8 @@ function renderizarProdutos(produtos) {
     `).join('');
 }
 
-// Abrir modal para novo produto
+
+
 function abrirModal() {
     produtoEditando = null;
     document.getElementById('modalTitle').textContent = 'Novo Produto';
@@ -76,13 +81,16 @@ function abrirModal() {
     document.getElementById('modal').style.display = 'block';
 }
 
-// Fechar modal
+
+
 function fecharModal() {
     document.getElementById('modal').style.display = 'none';
     limparFormulario();
 }
 
-// Limpar formulário
+
+
+
 function limparFormulario() {
     document.getElementById('nome').value = '';
     document.getElementById('descricao').value = '';
@@ -92,7 +100,8 @@ function limparFormulario() {
     document.getElementById('errors').innerHTML = '';
 }
 
-// Salvar produto (criar ou atualizar)
+
+
 async function salvarProduto() {
     const produto = {
         nome: document.getElementById('nome').value,
@@ -135,7 +144,8 @@ async function salvarProduto() {
     }
 }
 
-// Editar produto
+
+
 async function editarProduto(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`);
@@ -155,19 +165,22 @@ async function editarProduto(id) {
     }
 }
 
-// Confirmar exclusão
+
+
 function confirmarExcluir(id) {
     produtoParaExcluir = id;
     document.getElementById('confirmModal').style.display = 'block';
 }
 
-// Fechar modal de confirmação
+
+
 function fecharConfirm() {
     document.getElementById('confirmModal').style.display = 'none';
     produtoParaExcluir = null;
 }
 
-// Confirmar e executar exclusão
+
+
 async function confirmarExclusao() {
     if (!produtoParaExcluir) return;
     
@@ -189,19 +202,21 @@ async function confirmarExclusao() {
     }
 }
 
-// Mostrar erros de validação
+
 function mostrarErros(erros) {
     const errorsDiv = document.getElementById('errors');
     errorsDiv.innerHTML = '<ul>' + erros.map(e => `<li>${e}</li>`).join('') + '</ul>';
     errorsDiv.classList.add('show');
 }
 
-// Mostrar erro genérico
+
+
 function mostrarErro(mensagem) {
     alert(mensagem);
 }
 
-// Fechar modal ao clicar fora
+
+
 window.onclick = function(event) {
     const modal = document.getElementById('modal');
     const confirmModal = document.getElementById('confirmModal');
